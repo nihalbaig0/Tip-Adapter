@@ -1,5 +1,5 @@
 # ------ root_path/dataset_name ------
-root_path: 'DATA/DATA'
+root_path: '/content/DATA/DATA'
 
 
 # ------ Load Cache and Features ------
