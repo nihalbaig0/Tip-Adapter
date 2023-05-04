@@ -167,8 +167,8 @@ def main():
     print("Preparing dataset.")
     dataset = build_dataset(cfg['dataset'], cfg['root_path'], cfg['shots'])
 
-    val_loader = build_data_loader(data_source=dataset.val, batch_size=64, is_train=False, tfm=preprocess, shuffle=False)
-    test_loader = build_data_loader(data_source=dataset.test, batch_size=64, is_train=False, tfm=preprocess, shuffle=False)
+    val_loader = build_data_loader(data_source=dataset.val, batch_size=32, is_train=False, tfm=preprocess, shuffle=False)
+    test_loader = build_data_loader(data_source=dataset.test, batch_size=32, is_train=False, tfm=preprocess, shuffle=False)
 
     train_tranform = transforms.Compose([
         transforms.RandomResizedCrop(size=224, scale=(0.5, 1), interpolation=transforms.InterpolationMode.BICUBIC),
@@ -177,8 +177,8 @@ def main():
         transforms.Normalize(mean=(0.48145466, 0.4578275, 0.40821073), std=(0.26862954, 0.26130258, 0.27577711))
     ])
 
-    train_loader_cache = build_data_loader(data_source=dataset.train_x, batch_size=64, tfm=train_tranform, is_train=True, shuffle=False)
-    train_loader_F = build_data_loader(data_source=dataset.train_x, batch_size=64, tfm=train_tranform, is_train=True, shuffle=True)
+    train_loader_cache = build_data_loader(data_source=dataset.train_x, batch_size=32, tfm=train_tranform, is_train=True, shuffle=False)
+    train_loader_F = build_data_loader(data_source=dataset.train_x, batch_size=32, tfm=train_tranform, is_train=True, shuffle=True)
 
     # Textual features
     print("\nGetting textual features as CLIP's classifier.")
