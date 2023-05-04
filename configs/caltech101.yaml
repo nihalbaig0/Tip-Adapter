@@ -23,7 +23,7 @@ init_alpha: 3
 
 # ------ Basic Config ------
 dataset: 'caltech101'
-shots: 16
+shots: 8
 backbone: 'RN50'
 
 lr: 0.001
