@@ -52,15 +52,17 @@ def build_cache_model(cfg, clip_model, train_loader_cache):
                     image_features = clip_model.encode_image(images)
                     train_features.append(image_features)
                     if augment_idx == 0:
-                        target = target.cuda()
+                        target = target.to(device='cpu')
                         cache_values.append(target)
-                cache_keys.append(torch.cat(train_features, dim=0).unsqueeze(0))
+                cache_keys.append(torch.cat(train_features, dim=0).unsqueeze(0).cpu())
             
         cache_keys = torch.cat(cache_keys, dim=0).mean(dim=0)
         cache_keys /= cache_keys.norm(dim=-1, keepdim=True)
         cache_keys = cache_keys.permute(1, 0)
         cache_values = F.one_hot(torch.cat(cache_values, dim=0)).half()
-
+        
+        cache_keys = cache_keys.to(device='cuda')
+        cache_values= cache_values.to(device='cuda')
         torch.save(cache_keys, cfg['cache_dir'] + '/keys_' + str(cfg['shots']) + "shots.pt")
         torch.save(cache_values, cfg['cache_dir'] + '/values_' + str(cfg['shots']) + "shots.pt")
 
